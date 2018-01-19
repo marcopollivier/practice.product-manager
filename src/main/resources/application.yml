@@ -3,7 +3,7 @@ project.name: product-manager
 spring:
   #Application
   application:
-    name: cypher
+    name: ${project.name}
 
   #Database - H2
   h2.console:
@@ -20,3 +20,15 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: validate
+
+server:
+  port: 8080
+  contextPath: /api
+  error:
+    whitelabel:
+      enabled: false
+  tomcat:
+    accesslog:
+      pattern: common
+      enabled: true
+      directory: /logdir
