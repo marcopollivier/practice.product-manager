@@ -1,6 +1,4 @@
-package com.github.marcopollivier.avenuecode.productmanager.app.domain.model.image;
-
-import com.github.marcopollivier.avenuecode.productmanager.app.domain.model.product.Product;
+package com.github.marcopollivier.avenuecode.productmanager.app.domain.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
