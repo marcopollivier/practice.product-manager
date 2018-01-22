@@ -15,6 +15,10 @@ import java.util.Set;
 public class ProductDTO {
 
     @XmlAttribute
+    @ApiModelProperty(value = "Product id", hidden = true)
+    private Long id;
+
+    @XmlAttribute
     @ApiModelProperty(value = "Product name", example = "Printer")
     private String name;
 
@@ -33,6 +37,14 @@ public class ProductDTO {
     public ProductDTO() {
         images = new HashSet<>();
         subProducts = new HashSet<>();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

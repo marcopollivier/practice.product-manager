@@ -56,6 +56,7 @@ public class ProductAdapter {
     private ProductDTO fromEntity(Product product) {
         ProductDTO dto = new ProductDTO();
 
+        dto.setId(product.getId());
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
 

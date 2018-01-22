@@ -27,14 +27,12 @@ public class Product {
     @OneToMany(
             mappedBy = "parentProduct",
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
             fetch = FetchType.LAZY)
     private Set<Product> subProducts;
 
     @OneToMany(
             mappedBy = "product",
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
             fetch = FetchType.LAZY)
     private Set<Image> images;
 

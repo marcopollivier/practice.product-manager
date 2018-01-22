@@ -11,14 +11,27 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class ImageDTO {
 
     @XmlAttribute
+    @ApiModelProperty(value = "Image id", hidden = true)
+    private Long id;
+
+    @XmlAttribute
     @ApiModelProperty(value = "Image type", example = "Main image")
     private String type;
 
     public ImageDTO() {
     }
 
-    public ImageDTO(String type) {
+    public ImageDTO(Long id, String type) {
         this.type = type;
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getType() {
