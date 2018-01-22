@@ -3,7 +3,7 @@ package com.github.marcopollivier.avenuecode.productmanager.app.domain.model;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name = "image")
+@Entity
 @Table(name = "image")
 public class Image {
 
