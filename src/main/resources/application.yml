@@ -4,25 +4,47 @@ spring:
   #Application
   application:
     name: ${project.name}
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      indent_output: true
 
-  #Database - H2
-  h2.console:
-    enabled: true
-    path: /h2
+#  #Database - H2
+#  h2.console:
+#    enabled: true
+#    path: /h2
+#  datasource:
+#    url: jdbc:h2:mem:avenuecode-productmanager-marcopollivier
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+#    initialize: true
+#  jpa:
+#    show-sql: true
+#    properties.hibernate:
+#      dialect: org.hibernate.dialect.H2Dialect
+#      naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+#    hibernate:
+#      ddl-auto: validate
+#    database-platform: org.hibernate.dialect.H2Dialect
+
   datasource:
-    url: jdbc:h2:mem:avenuecode-productmanager-marcopollivier
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-    initialize: true
+    url: jdbc:postgresql://localhost:5432/avenuecode-productmanager
+    username: postgres
+    password: postgres
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 10
+      connection-test-query: SELECT 1
+    min-active: 1
+    min-idle: 1
   jpa:
-    show-sql: true
+    show-sql: false
     properties.hibernate:
-      dialect: org.hibernate.dialect.H2Dialect
+      dialect: org.hibernate.dialect.PostgreSQL94Dialect
       naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
     hibernate:
       ddl-auto: validate
-    database-platform: org.hibernate.dialect.H2Dialect
 
 server:
   port: 8080

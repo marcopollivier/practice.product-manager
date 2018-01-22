@@ -3,9 +3,7 @@ package com.github.marcopollivier.avenuecode.productmanager.app.domain.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,29 +11,23 @@ import java.util.Set;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
 
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "parent_product_id")
     private Product parentProduct;
 
     @OneToMany(
-            mappedBy = "parentProduct",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
+            mappedBy = "parentProduct")
     private Set<Product> subProducts;
 
     @OneToMany(
-            mappedBy = "product",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
+            mappedBy = "product")
     private Set<Image> images;
 
     @Column(name = "created_at", nullable = false)
