@@ -1,5 +1,7 @@
 # Avenue Code - Product Manager
 
+[![Build Status](https://travis-ci.org/marcopollivier/product-manager.svg?branch=master)](https://travis-ci.org/marcopollivier/product-manager)
+
 ## API
 
 > You can access the Application API on the address: [http://localhost:8080/swagger-ui.html#/Product](http://localhost:8080/swagger-ui.html#/Product)
