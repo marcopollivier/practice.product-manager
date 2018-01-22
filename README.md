@@ -4,6 +4,10 @@
 
 > You can access the Application API on the address: [http://localhost:8080/swagger-ui.html#/Product](http://localhost:8080/swagger-ui.html#/Product)
 
+## General
+
+The Application health can be checked on [BitBucket Pipeline](https://bitbucket.org/olliviermarco/avenuecode-product-manager/addon/pipelines/home#!/results)
+
 ## Run Tests and Application
 
 - Build application with Maven: ```mvn clean install```
@@ -20,14 +24,10 @@ This application uses the Memory DB **H2** and the [Liquibase](http://www.liquib
 
 ## TODO - Not Working well until now
 
-> - For any reason, the JPA Fetch configuration is not working correctly. 
+> - For any reason, the JPA Fetch Lazy configuration is not working correctly. 
 > - I need to check why this occurring. 
 > - I wasted a lot of time trying fix it. 
 > - For this, any queries does not working correctly.
-
-## Data model
-
-![alt text](readme/img/image002.png "Model")
 
 ## Scenario
 
@@ -64,3 +64,7 @@ Product also has a Many to One relationship with itself (Many Products to one Pa
     - How to compile and run the application with an example for each call.
     - How to run the suite of automated tests.
     - Mention anything that was asked but not delivered and why, and any additional comments.
+    
+## Data model
+
+![alt text](readme/img/image002.png "Model")
