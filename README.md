@@ -26,10 +26,9 @@ This application uses the Memory DB **H2** and the [Liquibase](http://www.liquib
 
 ## TODO - Not Working well until now
 
-> - For any reason, the JPA Fetch Lazy configuration is not working correctly. 
-> - I need to check why this occurring. 
-> - I wasted a lot of time trying fix it. 
-> - For this, any queries does not working correctly.
+> - For some reason, the JPA Fetch Lazy configuration is not working correctly. 
+> - I wasted a lot of time trying fix it, but it's not ok yet. 
+> - For this, some queries does not working correctly.
 
 ## Scenario
 
