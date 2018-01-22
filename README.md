@@ -16,6 +16,13 @@
 
 This application uses the Memory DB *H2* and the [Liquibase](http://www.liquibase.org/) is the responsible to create the database structure and to menage it.
 
+## TODO - Not Working well until now
+
+For any reason, the JPA Fetch configuration is not working correctly. 
+I need to check why this occurring. 
+I wasted a lot of time trying fix it. 
+For this, any queries does not working correctly.
+
 ## Data model
 
 ![alt text](readme/img/image002.png "Model")

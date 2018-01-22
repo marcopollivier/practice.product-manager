@@ -13,12 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Api(tags = "Product", description = "Product operations.")
 @RestController
-@RequestMapping(value = "/product",
-                consumes = MediaType.APPLICATION_JSON_VALUE,
-                produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/product")
 public class ProductRestController {
 
     //TODO refatorar para utilizar uma implementação jax-rs
@@ -27,7 +28,7 @@ public class ProductRestController {
     private ProductService productService;
 
     @ApiOperation(value = "Create Product", notes = "Create a product.")
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> create(@Valid @RequestBody ProductDTO dto) {
         Product product = new ProductAdapter(dto).convertToEntity();
 
@@ -36,24 +37,47 @@ public class ProductRestController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Update Product", notes = "Update product.")
+    @RequestMapping(method = RequestMethod.PUT, value = "/{productId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> update(@PathVariable("productId") long productId,
+                                       @Valid @RequestBody ProductDTO dto) {
+        Product product = new ProductAdapter(dto).convertToEntity();
+
+        productService.saveOrUpdate(productId, product);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @ApiOperation(value = "Delete Product", notes = "Retrieve all products.")
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{productId}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{productId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable("productId") long productId) {
-
         productService.delete(productId);
-
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
+    //Gets
+    @ApiOperation(value = "Retrieve All Single Products", notes = "Get all products excluding relationships ")
+    @RequestMapping(method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ProductDTO>> requestAllComplete() {
 
+        List<Product> products = productService.retrieveAllSingleProducts();
 
-    @ApiOperation(value = "Retrieve All Products", notes = "Retrieve all products.")
-    @RequestMapping(method = RequestMethod.GET, value = "{productId}")
-    public ResponseEntity<Void> request(@PathVariable("productId") String productId) {
+        ProductAdapter adapter = new ProductAdapter(products);
+        List<ProductDTO> productDTOS = adapter.fromEntityList();
 
+        return new ResponseEntity<>(productDTOS, HttpStatus.OK);
+    }
 
+    @ApiOperation(value = "Retrieve a specific Single Products", notes = "Get a specific product excluding relationships ")
+    @RequestMapping(method = RequestMethod.GET, value = "{productId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProductDTO> requestSpecificComplete(@PathVariable("productId") long productId) {
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        Product product = productService.retrieveASingleProduct(productId);
+
+        ProductAdapter adapter = new ProductAdapter(product);
+        ProductDTO productDTO = adapter.convertToDTO();
+
+        return new ResponseEntity<>(productDTO, HttpStatus.OK);
     }
 
 }

@@ -82,14 +82,4 @@ public class Image {
         this.updatedAt = updatedAt;
     }
 
-    @Override
-    public String toString() {
-        return "Image{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", product=" + product +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
 }

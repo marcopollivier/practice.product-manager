@@ -92,4 +92,16 @@ public class ProductDTO {
         return entity;
     }
 
+    public ProductDTO fromEntity(Product product) {
+        this.setName(product.getName());
+        this.setDescription(product.getDescription());
+
+        product.getSubProducts().forEach(productEntity -> this.addSubProductDTO(fromEntity(productEntity)));
+
+        product.getImages().forEach(imageEntity -> this.addImageDTO(new ImageDTO(imageEntity.getType())));
+
+        return this;
+    }
+
+
 }
