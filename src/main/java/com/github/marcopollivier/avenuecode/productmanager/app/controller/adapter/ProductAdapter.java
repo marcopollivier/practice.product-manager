@@ -1,5 +1,6 @@
 package com.github.marcopollivier.avenuecode.productmanager.app.controller.adapter;
 
+import com.github.marcopollivier.avenuecode.productmanager.app.controller.dto.ImageDTO;
 import com.github.marcopollivier.avenuecode.productmanager.app.controller.dto.ProductDTO;
 import com.github.marcopollivier.avenuecode.productmanager.app.domain.model.Product;
 
@@ -38,17 +39,32 @@ public class ProductAdapter {
             return null;
         }
 
-        return new ProductDTO().fromEntity(this.product);
+        return fromEntity(this.product);
     }
 
     public List<ProductDTO> fromEntityList() {
+        if(products == null || products.isEmpty()) {
+            return null;
+        }
         List<ProductDTO> result = new ArrayList<>();
 
-        for (Product prod : products) {
-            result.add(new ProductDTO().fromEntity(prod));
-        }
+        products.forEach(prod -> result.add(fromEntity(prod)));
 
         return result;
+    }
+
+
+    private ProductDTO fromEntity(Product product) {
+        ProductDTO dto = new ProductDTO();
+
+        dto.setName(product.getName());
+        dto.setDescription(product.getDescription());
+
+        product.getSubProducts().forEach(subProduct -> dto.addSubProductDTO(fromEntity(subProduct)));
+
+        product.getImages().forEach(imageEntity -> dto.addImageDTO(new ImageDTO(imageEntity.getType())));
+
+        return dto;
     }
 
 }

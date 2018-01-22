@@ -37,8 +37,6 @@ public class ProductService {
         updatable.setName(product.getName());
         updatable.setDescription(product.getDescription());
         updatable.setParentProduct(product.getParentProduct());
-        updatable.setSubProducts(product.getSubProducts());
-        updatable.setImages(product.getImages());
 
         return productRepository.save(updatable);
     }
