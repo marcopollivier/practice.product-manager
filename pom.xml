@@ -25,6 +25,8 @@
 
 		<spring-boot.version>1.5.9.RELEASE</spring-boot.version>
 		<swagger.version>2.7.0</swagger.version>
+
+		<apache-commons.version>3.7</apache-commons.version>
 	</properties>
 
 	<dependencies>
@@ -64,6 +66,11 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${apache-commons.version}</version>
 		</dependency>
 
 		<!-- Doc API -->

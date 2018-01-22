@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity(name = "image")
+@Table(name = "image")
 public class Image {
 
     @Id
@@ -12,7 +13,7 @@ public class Image {
 
     private String type;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -23,6 +24,10 @@ public class Image {
     private LocalDateTime updatedAt;
 
     public Image() {
+    }
+
+    public Image(String type) {
+        this.type = type;
     }
 
     @PreUpdate
@@ -75,30 +80,6 @@ public class Image {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Image image = (Image) o;
-
-        if (id != null ? !id.equals(image.id) : image.id != null) return false;
-        if (type != null ? !type.equals(image.type) : image.type != null) return false;
-        if (product != null ? !product.equals(image.product) : image.product != null) return false;
-        if (createdAt != null ? !createdAt.equals(image.createdAt) : image.createdAt != null) return false;
-        return updatedAt != null ? updatedAt.equals(image.updatedAt) : image.updatedAt == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (product != null ? product.hashCode() : 0);
-        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
-        result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
-        return result;
     }
 
     @Override

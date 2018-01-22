@@ -1,6 +1,7 @@
 package com.github.marcopollivier.avenuecode.productmanager.app.service;
 
 import com.github.marcopollivier.avenuecode.productmanager.app.domain.model.Product;
+import com.github.marcopollivier.avenuecode.productmanager.app.domain.repository.ImageRepository;
 import com.github.marcopollivier.avenuecode.productmanager.app.domain.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,18 +10,21 @@ import org.springframework.stereotype.Service;
 public class ProductService {
 
     @Autowired
-    private ProductRepository repository;
+    private ProductRepository productRepository;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     public Product saveOrUpdate(Product product) {
-        return repository.save(product);
+        return productRepository.save(product);
     }
 
     public void delete(Product product) {
-        repository.delete(product);
+        productRepository.delete(product);
     }
 
     public void delete(Long productId) {
-        repository.delete(productId);
+        productRepository.delete(productId);
     }
 
 }

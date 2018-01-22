@@ -3,10 +3,13 @@ package com.github.marcopollivier.avenuecode.productmanager.app.domain.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity(name = "product")
+@Table(name = "product")
 public class Product {
 
     @Id
@@ -17,14 +20,20 @@ public class Product {
 
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_product_id")
-    private Product product;
+    private Product parentProduct;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(
+            mappedBy = "parentProduct",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private Set<Product> subProducts;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(
+            mappedBy = "product",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private Set<Image> images;
 
     @Column(name = "created_at", nullable = false)
@@ -38,6 +47,7 @@ public class Product {
         images = new HashSet<>();
     }
 
+    //
     @PreUpdate
     public void onPreUpdate() {
         this.setUpdatedAt(LocalDateTime.now());
@@ -50,6 +60,7 @@ public class Product {
         this.setCreatedAt(now);
     }
 
+    //
     public Long getId() {
         return id;
     }
@@ -74,12 +85,28 @@ public class Product {
         this.description = description;
     }
 
-    public Product getProduct() {
-        return product;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Product getParentProduct() {
+        return parentProduct;
+    }
+
+    public void setParentProduct(Product parentProduct) {
+        this.parentProduct = parentProduct;
     }
 
     public Set<Product> getSubProducts() {
@@ -98,50 +125,19 @@ public class Product {
         this.images = images;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+    //
+    public void addSubProduct(Product product) {
+        if(product != null) {
+            this.subProducts.add(product);
+            product.setParentProduct(this);
         }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Product product1 = (Product) o;
-
-        if (id != null ? !id.equals(product1.id) : product1.id != null) return false;
-        if (name != null ? !name.equals(product1.name) : product1.name != null) return false;
-        if (description != null ? !description.equals(product1.description) : product1.description != null)
-            return false;
-        if (product != null ? !product.equals(product1.product) : product1.product != null) return false;
-        return subProducts != null ? subProducts.equals(product1.subProducts) : product1.subProducts == null;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (product != null ? product.hashCode() : 0);
-        result = 31 * result + (subProducts != null ? subProducts.hashCode() : 0);
-        return result;
+    public void addImage(Image image) {
+        if(image != null) {
+            this.images.add(image);
+            image.setProduct(this);
+        }
     }
 
     @Override
@@ -150,7 +146,7 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", product=" + product +
+                ", product=" + parentProduct +
                 ", subProducts=" + subProducts +
                 '}';
     }

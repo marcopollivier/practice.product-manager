@@ -17,9 +17,12 @@ spring:
     initialize: true
   jpa:
     show-sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
+    properties.hibernate:
+      dialect: org.hibernate.dialect.H2Dialect
+      naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
     hibernate:
       ddl-auto: validate
+    database-platform: org.hibernate.dialect.H2Dialect
 
 server:
   port: 8080

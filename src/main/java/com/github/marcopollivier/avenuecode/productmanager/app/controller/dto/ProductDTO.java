@@ -1,40 +1,38 @@
 package com.github.marcopollivier.avenuecode.productmanager.app.controller.dto;
 
+import com.github.marcopollivier.avenuecode.productmanager.app.domain.model.Product;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashSet;
 import java.util.Set;
 
-@XmlAccessorType(value = XmlAccessType.NONE)
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class ProductDTO {
 
     @XmlAttribute
-    @ApiModelProperty(value = "Product name", required = true, position = 0)
+    @ApiModelProperty(value = "Product name")
     private String name;
 
     @XmlAttribute
-    @ApiModelProperty(value = "Product description", required = true, position = 0)
+    @ApiModelProperty(value = "Product description", position = 1)
     private String description;
 
-    @XmlAttribute
-    @ApiModelProperty(value = "Parent product", required = true, position = 0)
-    private ProductDTO parentProduct;
-
-    @XmlAttribute
-    @ApiModelProperty(value = "Sub products", required = true, position = 0)
+    @XmlAttribute(name = "subProducts")
+    @ApiModelProperty(value = "Sub products", position = 2)
     private Set<ProductDTO> subProducts;
 
-    @XmlAttribute
-    @ApiModelProperty(value = "Images", required = true, position = 0)
+    @XmlAttribute(name = "images")
+    @ApiModelProperty(value = "Images", position = 3)
     private Set<ImageDTO> images;
 
     public ProductDTO() {
         images = new HashSet<>();
         subProducts = new HashSet<>();
-        parentProduct = new ProductDTO();
     }
 
     public String getName() {
@@ -53,14 +51,6 @@ public class ProductDTO {
         this.description = description;
     }
 
-    public ProductDTO getParentProduct() {
-        return parentProduct;
-    }
-
-    public void setParentProduct(ProductDTO parentProduct) {
-        this.parentProduct = parentProduct;
-    }
-
     public Set<ProductDTO> getSubProducts() {
         return subProducts;
     }
@@ -75,6 +65,31 @@ public class ProductDTO {
 
     public void setImages(Set<ImageDTO> images) {
         this.images = images;
+    }
+
+    public void addImageDTO(ImageDTO imageDTO) {
+        if(imageDTO != null) {
+            this.images.add(imageDTO);
+        }
+    }
+
+    public void addSubProductDTO(ProductDTO productDTO) {
+        if(productDTO != null) {
+            this.subProducts.add(productDTO);
+        }
+    }
+
+    public Product toEntity() {
+        Product entity = new Product();
+
+        entity.setName(this.name);
+        entity.setDescription(this.description);
+
+        subProducts.forEach(dto -> entity.addSubProduct(dto.toEntity()));
+
+        images.forEach(dto -> entity.addImage(dto.toEntity()));
+
+        return entity;
     }
 
 }
