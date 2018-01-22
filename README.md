@@ -1,14 +1,14 @@
 # Avenue Code - Product Manager
 
+## General
+
 [![Build Status](https://travis-ci.org/marcopollivier/product-manager.svg?branch=master)](https://travis-ci.org/marcopollivier/product-manager)
+
+The Application health can be checked on [BitBucket Pipeline](https://bitbucket.org/olliviermarco/avenuecode-product-manager/addon/pipelines/home#!/results)
 
 ## API
 
 > You can access the Application API on the address: [http://localhost:8080/swagger-ui.html#/Product](http://localhost:8080/swagger-ui.html#/Product)
-
-## General
-
-The Application health can be checked on [BitBucket Pipeline](https://bitbucket.org/olliviermarco/avenuecode-product-manager/addon/pipelines/home#!/results)
 
 ## Run Tests and Application
 
