@@ -15,11 +15,11 @@ import java.util.Set;
 public class ProductDTO {
 
     @XmlAttribute
-    @ApiModelProperty(value = "Product name")
+    @ApiModelProperty(value = "Product name", example = "Printer")
     private String name;
 
     @XmlAttribute
-    @ApiModelProperty(value = "Product description", position = 1)
+    @ApiModelProperty(value = "Product description", example = "Deskjet Printer",position = 1)
     private String description;
 
     @XmlAttribute(name = "subProducts")

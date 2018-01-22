@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class ImageDTO {
 
     @XmlAttribute
-    @ApiModelProperty(value = "Image type")
+    @ApiModelProperty(value = "Image type", example = "Main image")
     private String type;
 
     public ImageDTO() {

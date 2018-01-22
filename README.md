@@ -1,12 +1,26 @@
 # Avenue Code - Product Manager
 
+## API
+
+> You can access the Application API on the address: [http://localhost:8080/swagger-ui.html#/Product](http://localhost:8080/swagger-ui.html#/Product)
+
+## Run Tests and Application
+
+- Build application with Maven: ```mvn clean install```
+
+- Run application on Spring Boot: ```mvn spring-boot:run```
+
+- Run tests: ```mvn -fn test```
+
+## Database
+
+This application uses the Memory DB *H2* and the [Liquibase](http://www.liquibase.org/) is the responsible to create the database structure and to menage it.
+
 ## Data model
 
 ![alt text](readme/img/image002.png "Model")
 
-## TODO
-
-Scenario:
+## Scenario
 
 We have a Product Entity with One to Many relationship with Image entity
 

@@ -36,7 +36,18 @@ public class ProductRestController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @ApiOperation(value = "Consultar Pagamento", notes = "Retrieve all products.")
+    @ApiOperation(value = "Delete Product", notes = "Retrieve all products.")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{productId}")
+    public ResponseEntity<Void> delete(@PathVariable("productId") long productId) {
+
+        productService.delete(productId);
+
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+
+
+    @ApiOperation(value = "Retrieve All Products", notes = "Retrieve all products.")
     @RequestMapping(method = RequestMethod.GET, value = "{productId}")
     public ResponseEntity<Void> request(@PathVariable("productId") String productId) {
 
