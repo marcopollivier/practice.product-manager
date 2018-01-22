@@ -53,16 +53,19 @@ public class ProductAdapter {
         return result;
     }
 
-
     private ProductDTO fromEntity(Product product) {
         ProductDTO dto = new ProductDTO();
 
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
 
-        product.getSubProducts().forEach(subProduct -> dto.addSubProductDTO(fromEntity(subProduct)));
+        if(product.getSubProducts() != null) {
+            product.getSubProducts().forEach(subProduct -> dto.addSubProductDTO(fromEntity(subProduct)));
+        }
 
-        product.getImages().forEach(imageEntity -> dto.addImageDTO(new ImageDTO(imageEntity.getType())));
+        if(product.getImages() != null) {
+            product.getImages().forEach(imageEntity -> dto.addImageDTO(new ImageDTO(imageEntity.getId(), imageEntity.getType())));
+        }
 
         return dto;
     }
