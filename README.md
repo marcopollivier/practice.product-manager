@@ -8,27 +8,35 @@ The Application health can be checked on [BitBucket Pipeline](https://bitbucket.
 
 ## API
 
-> You can access the Application API on the address: [http://localhost:8080/swagger-ui.html#/Product](http://localhost:8080/swagger-ui.html#/Product)
+> - You can access the UI Application API on the address: [http://localhost:8080/swagger-ui.html#/Product](http://localhost:8080/swagger-ui.html#/Product)
+> - This page documents the entire application API
+> - You can also interact with Application API UI to request the endpoints
+> - There is a call sample for each endpoint like the images below
+
+![alt text](readme/img/api.png "API")
+
+![alt text](readme/img/api-sample.png "API sample")
 
 ## Run Tests and Application
 
-- Build application with Maven: ```mvn clean install```
+- Build and compile application: ```mvn clean install```
+
+- Run all tests: ```mvn test```
 
 - Run application on Spring Boot: ```mvn spring-boot:run```
 
-- Run tests: ```mvn -fn test```
-
 ## Database
 
-This application uses the Memory DB **H2** and the [Liquibase](http://www.liquibase.org/) is the responsible to create the database structure and to menage it.
+> - This application uses a memory database.  and the 
+> - The chosen database is: **H2**
+> - UI database can be access [here](http://localhost:8080/h2/login.do)
+> - [Liquibase](http://www.liquibase.org/) is responsible to create the database structure and to menage it.
 
-- Access database: [http://localhost:8080/h2/login.do](http://localhost:8080/h2/login.do)
+## Technical Debit
 
-## TODO - Not Working well until now
-
-> - For some reason, the JPA Fetch Lazy configuration is not working correctly. 
-> - I wasted a lot of time trying fix it, but it's not ok yet. 
-> - For this, some queries does not working correctly.
+> - All features was developed, but there is a technical debit on ProductService. 
+> - It was necessary because SpringBoot is ignoring Lazy mode on relationship annotation 
+> - So I solve it programmatically but not sounds good
 
 ## Scenario
 
@@ -68,4 +76,4 @@ Product also has a Many to One relationship with itself (Many Products to one Pa
     
 ## Data model
 
-![alt text](readme/img/image002.png "Model")
+![alt text](readme/img/model.png "Model")
