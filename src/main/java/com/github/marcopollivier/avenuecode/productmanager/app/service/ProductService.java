@@ -2,8 +2,9 @@ package com.github.marcopollivier.avenuecode.productmanager.app.service;
 
 import com.github.marcopollivier.avenuecode.productmanager.app.controller.ProductRetrieveType;
 import com.github.marcopollivier.avenuecode.productmanager.app.domain.model.Product;
-import com.github.marcopollivier.avenuecode.productmanager.app.domain.repository.ImageRepository;
 import com.github.marcopollivier.avenuecode.productmanager.app.domain.repository.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,13 @@ import static com.github.marcopollivier.avenuecode.productmanager.app.controller
 @Transactional
 public class ProductService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
+
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-    private ImageRepository imageRepository;
-
     public Product saveOrUpdate(Product product) {
+        LOGGER.info("Saving...");
         return productRepository.save(product);
     }
 
@@ -41,10 +42,13 @@ public class ProductService {
         updatable.setDescription(product.getDescription());
         updatable.setParentProduct(product.getParentProduct());
 
+        LOGGER.info("Updating...");
+
         return productRepository.save(updatable);
     }
 
     public void delete(Long productId) {
+        LOGGER.info("Deleting...");
         productRepository.delete(productId);
     }
 
@@ -53,20 +57,20 @@ public class ProductService {
         List<Product> allByParentProductIsNull = productRepository.findAllByParentProductIsNull();
 
         if(type.equals(NO_RELATIONSHIP)) {
-            //log
+            LOGGER.info("No Relationship");
             allByParentProductIsNull.forEach(product -> product.setImages(null));
             allByParentProductIsNull.forEach(product -> product.setSubProducts(null));
 
         } else if(type.equals(ONLY_CHILD_PRODUCT)) {
-            //log
+            LOGGER.info("Only child");
             allByParentProductIsNull.forEach(product -> product.setImages(null));
 
         } else if(type.equals(ONLY_IMAGES)) {
-            //log
+            LOGGER.info("Only images");
             allByParentProductIsNull.forEach(product -> product.setSubProducts(null));
 
         } else if(type.equals(FULL_RELATIONSHIP)) {
-            //log
+            LOGGER.info("Complete product");
         }
 
         return allByParentProductIsNull;
@@ -83,22 +87,34 @@ public class ProductService {
         Product product = findById.get();
 
         if(type.equals(NO_RELATIONSHIP)) {
-            //log
+            LOGGER.info("No Relationship");
             product.setSubProducts(null);
             product.setImages(null);
 
         } else if(type.equals(ONLY_CHILD_PRODUCT)) {
-            //log
+            LOGGER.info("Only child");
             product.setImages(null);
 
         } else if(type.equals(ONLY_IMAGES)) {
-            //log
+            LOGGER.info("Only images");
             product.setSubProducts(null);
 
         } else if(type.equals(FULL_RELATIONSHIP)) {
-            //log
+            LOGGER.info("Complete product");
         }
 
         return product;
     }
+
+
+    public List<Product> retrieveChildProducts(Long parentProductId) {
+        List<Product> listProducts = productRepository.findByParentProductId(parentProductId);
+
+        if (listProducts == null) {
+            throw new EntityNotFoundException();
+        }
+
+        return listProducts;
+    }
+
 }

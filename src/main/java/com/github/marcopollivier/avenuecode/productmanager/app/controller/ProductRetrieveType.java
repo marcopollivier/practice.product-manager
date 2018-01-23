@@ -4,5 +4,4 @@ public enum ProductRetrieveType {
 
     NO_RELATIONSHIP, FULL_RELATIONSHIP, ONLY_IMAGES, ONLY_CHILD_PRODUCT
 
-
 }

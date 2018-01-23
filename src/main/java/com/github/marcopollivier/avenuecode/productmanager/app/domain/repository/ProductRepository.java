@@ -17,4 +17,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where p.parentProduct is null and p.id = ?1")
     Optional<Product> findByIdAndParentProductIsNull(Long productId);
 
+    List<Product> findByParentProductId(Long parentProductId);
+
 }
