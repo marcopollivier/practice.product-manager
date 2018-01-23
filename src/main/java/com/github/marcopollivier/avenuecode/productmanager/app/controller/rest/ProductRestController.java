@@ -34,7 +34,7 @@ public class ProductRestController {
     @RestController
     @RequestMapping(value = "/product")
     @Api(tags = "Product Manager API - Product", description = "Product operations.")
-    class ProductRest {
+    public class ProductRest {
 
         @ApiOperation(value = "Create Product", notes = "Create a product.")
         @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
@@ -169,7 +169,7 @@ public class ProductRestController {
     @RestController
     @RequestMapping(value = "/child-products")
     @Api(tags = "Product Manager API - Child Products", description = "Child Products operations.")
-    class ChildProductRest {
+    public class ChildProductRest {
 
         @ApiOperation(value = "Retrieve Child Products", notes = "Get set of images for specific product")
         @RequestMapping(method = RequestMethod.GET, value = "/product/{productId}", produces = APPLICATION_JSON_VALUE)
@@ -188,7 +188,7 @@ public class ProductRestController {
     @RestController
     @RequestMapping(value = "/image")
     @Api(tags = "Product Manager API - Image", description = "Image operations.")
-    class ImageRest {
+    public class ImageRest {
 
         @ApiOperation(value = "Add Image", notes = "Add Image in the product")
         @RequestMapping(method = RequestMethod.PUT, value = "/product/{productId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)

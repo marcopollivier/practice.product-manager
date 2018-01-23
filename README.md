@@ -32,6 +32,10 @@ The Application health can be checked on [BitBucket Pipeline](https://bitbucket.
 > - UI database can be access [here](http://localhost:8080/h2/login.do)
 > - [Liquibase](http://www.liquibase.org/) is responsible to create the database structure and to menage it.
 
+## Test Coverage
+- **Unit tests**: 21%
+- **Integrated Test**: Only on Image endpoints
+
 ## Technical Debit
 
 > - All features was developed, but there is a technical debit on ProductService. 
