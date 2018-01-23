@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static com.github.marcopollivier.avenuecode.productmanager.app.controller.ProductRetrieveType.NO_RELATIONSHIP;
+
 @Service
 @Transactional
 public class ImageService {
@@ -24,33 +26,42 @@ public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
-//    public Product saveOrUpdate(Product product) {
-//        LOGGER.info("Saving...");
-//        return imageRepository.save(product);
-//    }
-//
-//    public Product saveOrUpdate(Long productId, Product product) {
-//        Optional<Product> findById = imageRepository.findByIdAndParentProductIsNull(productId);
-//
-//        if (!findById.isPresent()) {
-//            throw new EntityNotFoundException(String.format("Entity id %s not found", product.toString()));
-//        }
-//
-//        Product updatable = findById.get();
-//
-//        updatable.setName(product.getName());
-//        updatable.setDescription(product.getDescription());
-//        updatable.setParentProduct(product.getParentProduct());
-//
-//        LOGGER.info("Updating...");
-//
-//        return imageRepository.save(updatable);
-//    }
-//
-//    public void delete(Long productId) {
-//        LOGGER.info("Deleting...");
-//        imageRepository.delete(productId);
-//    }
+    @Autowired
+    private ProductService productService;
+
+    public Image add(Long productID, Image image) {
+        Product product = productService.retrieveProduct(NO_RELATIONSHIP, productID);
+
+        if(product == null) {
+            throw new EntityNotFoundException();
+        }
+
+        image.setProduct(product);
+
+        LOGGER.info("Saving...");
+        return imageRepository.save(image);
+    }
+
+    public Image saveOrUpdate(Long imageId, Image image) {
+        Optional<Image> findById = imageRepository.findById(imageId);
+
+        if (!findById.isPresent()) {
+            throw new EntityNotFoundException(String.format("Entity id %s not found", image.toString()));
+        }
+
+        Image updatable = findById.get();
+
+        updatable.setType(image.getType());
+
+        LOGGER.info("Updating...");
+
+        return imageRepository.save(updatable);
+    }
+
+    public void delete(Long imageId) {
+        LOGGER.info("Deleting...");
+        imageRepository.delete(imageId);
+    }
 
     public List<Image> retrieveImages(Long parentProductId) {
         List<Image> listImages = imageRepository.findByProductId(parentProductId);

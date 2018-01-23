@@ -58,7 +58,7 @@ public class ProductRestController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
 
-        @ApiOperation(value = "Delete Product", notes = "Retrieve all products.")
+        @ApiOperation(value = "Delete Product", notes = "Delete a products.")
         @RequestMapping(method = RequestMethod.DELETE, value = "/{productId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
         public ResponseEntity<Void> delete(@PathVariable("productId") long productId) {
 
@@ -189,6 +189,40 @@ public class ProductRestController {
     @RequestMapping(value = "/image")
     @Api(tags = "Product Manager API - Image", description = "Image operations.")
     class ImageRest {
+
+        @ApiOperation(value = "Add Image", notes = "Add Image in the product")
+        @RequestMapping(method = RequestMethod.PUT, value = "/product/{productId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+        public ResponseEntity<Void> add(@PathVariable("productId") long productId,
+                                           @Valid @RequestBody ImageDTO dto) {
+
+            Image image = new Image(dto.getType());
+
+            imageService.add(productId, image);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        @ApiOperation(value = "Update Image", notes = "Update image.")
+        @RequestMapping(method = RequestMethod.PUT, value = "/{imageId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+        public ResponseEntity<Void> update(@PathVariable("imageId") long imageId,
+                                           @Valid @RequestBody ImageDTO dto) {
+
+            Image image = new Image(dto.getType());
+
+            imageService.saveOrUpdate(imageId, image);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        @ApiOperation(value = "Delete Image", notes = "Delete a image.")
+        @RequestMapping(method = RequestMethod.DELETE, value = "/{imageId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+        public ResponseEntity<Void> delete(@PathVariable("imageId") long imageId) {
+
+            imageService.delete(imageId);
+
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+
+        }
 
         @ApiOperation(value = "Retrieve images", notes = "Get set of child products for specific product")
         @RequestMapping(method = RequestMethod.GET, value = "/product/{productId}", produces = APPLICATION_JSON_VALUE)
