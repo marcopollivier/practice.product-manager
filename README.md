@@ -1,4 +1,4 @@
-# Avenue Code - Product Manager
+# Product Manager - SpringBoot REST PoC
 
 ## General
 
