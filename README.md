@@ -3,6 +3,7 @@
 ## General
 
 [![Build Status](https://travis-ci.org/marcopollivier/product-manager.svg?branch=master)](https://travis-ci.org/marcopollivier/product-manager)
+[![codecov](https://codecov.io/gh/marcopollivier/product-manager/branch/master/graph/badge.svg)](https://codecov.io/gh/marcopollivier/product-manager)
 
 The Application health can be checked on [BitBucket Pipeline](https://bitbucket.org/olliviermarco/avenuecode-product-manager/addon/pipelines/home#!/results)
 
